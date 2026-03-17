@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  endee:
+    image: endeeio/endee-server:latest
+    container_name: endee-server
+    ports:
+      - "8080:8080"
+    volumes:
+      - endee-data:/data
+    environment:
+      NDD_NUM_THREADS: "0"
+      NDD_AUTH_TOKEN: ""
+    ulimits:
+      nofile:
+        soft: 100000
+        hard: 100000
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "200m"
+        max-file: "5"
+
+volumes:
+  endee-data:
